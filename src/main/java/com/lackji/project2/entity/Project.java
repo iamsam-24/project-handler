@@ -1,6 +1,8 @@
 package com.lackji.project2.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.sql.Timestamp;
@@ -10,6 +12,7 @@ import java.time.LocalDateTime;
 public class Project {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public String getName() {
