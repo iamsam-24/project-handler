@@ -35,5 +35,14 @@ public class GlobalExceptionHandler {
     }
 
 
+    //to handle error above than runtime
+    @ExceptionHandler(Exception.class)
+
+        public ResponseEntity<String> handleException(Exception ex){
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .body(ex.getMessage());
+        }
+
 
 }
