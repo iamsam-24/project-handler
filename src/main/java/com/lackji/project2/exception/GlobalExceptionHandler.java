@@ -21,6 +21,16 @@ public class GlobalExceptionHandler {
 //    }
 
     //for runtime execption
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handleResponseNotFoundException(
+            RuntimeException ex
+
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND.value())
+                .body(ex.getMessage());
+    }
     @ExceptionHandler(RuntimeException.class)
 
     public ResponseEntity<String> handleRuntimeException(RuntimeException ex, HttpServletRequest request){
@@ -41,7 +51,7 @@ public class GlobalExceptionHandler {
         public ResponseEntity<String> handleException(Exception ex){
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .body(ex.getMessage());
+                .body("Something went wrong please try again");
         }
 
 

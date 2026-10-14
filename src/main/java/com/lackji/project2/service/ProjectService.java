@@ -4,6 +4,7 @@ package com.lackji.project2.service;
 import com.lackji.project2.dto.Requestdto;
 import com.lackji.project2.dto.Responsedto;
 import com.lackji.project2.entity.Project;
+import com.lackji.project2.exception.ResourceNotFoundException;
 import com.lackji.project2.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,8 @@ public class ProjectService {
 
     public Responsedto createProject(Requestdto projectRequest){
         Project project= mapToEntity(projectRequest);
+
+
         Project projectResponse= projectRepository.save(project);
 
         return mapToDto(projectResponse);
@@ -31,10 +34,14 @@ public class ProjectService {
     }
 
     public Project getProject(Long id){
-        Optional<Project> projectResponse=projectRepository.findById(id);
+        Optional<Project> projectResponse = Optional.of(projectRepository
+                .findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Student with id: " + id + " not found ")));
 
      return projectResponse.get();
     }
+
 
     public List<Project> getAllProject(){
         List<Project> projectResponse= projectRepository.findAll();
