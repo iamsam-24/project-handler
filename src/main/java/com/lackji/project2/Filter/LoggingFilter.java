@@ -24,17 +24,38 @@ public class LoggingFilter implements Filter {
 
         HttpServletResponse httpServletResponse=(HttpServletResponse) servletResponse;
 
-        System.out.println("Incoming Request Method :" +httpServletRequest.getMethod());
 
-        System.out.println("Response Status :" +httpServletResponse.getStatus());
 
-        System.out.println("Endpoint URI" +httpServletRequest.getRequestURI());
+        //adding the errors logging ...
+        //if someother method is called or any exception related error that will be logged
 
-        filterChain.doFilter(servletRequest,servletResponse);
 
-        long duration=System.currentTimeMillis()- startTime;
 
-        System.out.println("API response Time :" +duration);
+        try {
+            filterChain.doFilter(servletRequest,servletResponse);
+
+
+
+
+        }
+        catch (IOException |ServletException |RuntimeException e){
+
+
+
+            e.printStackTrace();
+            throw e;
+
+        }
+
+
+        finally{
+//            System.out.println("Response Status :" + httpServletResponse.getStatus());//aftercompletion interceptor
+            System.out.println("Incoming Request Method :" +httpServletRequest.getMethod());
+            System.out.println("Endpoint URI :" +httpServletRequest.getRequestURI());
+
+            long duration = System.currentTimeMillis() - startTime;
+            System.out.println("API response Time :" + duration);//elasped time
+        }
     }
 
 
