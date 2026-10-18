@@ -4,6 +4,7 @@ package com.lackji.project2.service;
 import com.lackji.project2.dto.Requestdto;
 import com.lackji.project2.dto.Responsedto;
 import com.lackji.project2.entity.Project;
+import com.lackji.project2.exception.DuplicateFoundException;
 import com.lackji.project2.exception.ResourceNotFoundException;
 import com.lackji.project2.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,23 @@ public class ProjectService {
     public Responsedto createProject(Requestdto projectRequest){
         Project project= mapToEntity(projectRequest);
 
+        //adding creating time response ...like other backend responses like caching or other thing...this thing take time in reponse
+        try {
+            Thread.sleep(2000);
+        }
+        catch (Exception e) {}
+
+//
+//        if(nameExists(project)){
+//            throw new DuplicateFoundException("Project with same name "+ project.getName() +" already exits");
+//        }
+
+
 
         Project projectResponse= projectRepository.save(project);
 
         return mapToDto(projectResponse);
+
 
 
 
@@ -38,6 +52,11 @@ public class ProjectService {
                 .findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Student with id: " + id + " not found ")));
+
+        try {
+            Thread.sleep(2000);
+        }
+        catch (Exception e) {}
 
      return projectResponse.get();
     }
@@ -60,29 +79,35 @@ public class ProjectService {
 
     private Project mapToEntity(Requestdto requestdto){
 
-        System.out.println(requestdto.getName());
-        System.out.println(requestdto.getDescription());
-        System.out.println(requestdto.getStatus());
+
         Project project = new Project();
 
         project.setDescription(requestdto.getDescription());
         project.setName(requestdto.getName());
-        project.setStatus(requestdto.getStatus());
+        project.setType(requestdto.getType());
 
         return project;
 
     }
 
-    private Responsedto mapToDto(Project project){
-        Responsedto responsedto=new Responsedto();
+    private Responsedto mapToDto(Project project) {
+        Responsedto responsedto = new Responsedto();
 
         responsedto.setId(project.getId());
         responsedto.setDescription(project.getDescription());
         responsedto.setName(project.getName());
-        responsedto.setStatus(project.getStatus());
+        responsedto.setType(project.getType());
 
         return responsedto;
 
-    }
 
+//    private Boolean nameExists(Project project){
+//       return projectRepository.nameExists(project.getName());
+//    }
+
+
+        //adding extra time to give response to api or to load it ...like caching (redis things) actually it gives time for other backend processes to run
+
+
+    }
 }

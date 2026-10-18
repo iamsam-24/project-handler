@@ -31,6 +31,19 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND.value())
                 .body(ex.getMessage());
     }
+    @ExceptionHandler(DuplicateFoundException.class)
+    public ResponseEntity<String> handleDuplicateException(
+        RuntimeException ex
+    ){
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT.value())
+                .body("This thing already exists");
+
+    }
+
+
+
+
     @ExceptionHandler(RuntimeException.class)
 
     public ResponseEntity<String> handleRuntimeException(RuntimeException ex, HttpServletRequest request){

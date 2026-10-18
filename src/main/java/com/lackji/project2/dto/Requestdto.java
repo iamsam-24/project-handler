@@ -1,11 +1,12 @@
 package com.lackji.project2.dto;
 
+import com.lackji.project2.entity.Project;
 import org.jspecify.annotations.NonNull;
 
 public class Requestdto {
 
 
-    @NonNull
+
     private String name;
 
     public String getDescription() {
@@ -24,15 +25,19 @@ public class Requestdto {
         this.name = name;
     }
 
-    public String getStatus() {
-        return status;
-    }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     private String description;
-    private String status;
+    public Project.Status type;
 
+    public Project.Status getType() {
+        return type;
+    }
+
+    public void setType(Project.Status type) {
+        this.type = type;
+    }
+
+//    public Object getType() {
+//    }
 }

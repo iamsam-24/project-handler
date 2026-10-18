@@ -1,5 +1,7 @@
 package com.lackji.project2.dto;
 
+import com.lackji.project2.entity.Project;
+
 public class Responsedto {
 
     private Long id;
@@ -28,16 +30,17 @@ public class Responsedto {
         this.description = description;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     private String name;
     private String description;
-    private String status;
+    public Project.Status type;
+
+    public Project.Status getType(){
+        return type;
+    }
+
+    public void setType(Project.Status type){
+        this.type=type;
+    }
 
 }

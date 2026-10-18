@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public interface ProjectRepository extends JpaRepository<Project,Long> {
 
+//    Boolean nameExists(String name);
+
 
 
 }

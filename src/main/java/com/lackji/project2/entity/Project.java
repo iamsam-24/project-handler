@@ -39,13 +39,13 @@ public class Project {
         this.description = description;
     }
 
-    public String getStatus() {
-        return status;
+    public Status getType() {
+        return type;
+    }
+    public void setType(Status type){
+        this.type=type;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public LocalDateTime getCreatedat() {
         return createdat;
@@ -57,8 +57,16 @@ public class Project {
 
     private String name;
     private String description;
-    private String status;
+    public Status type;
     private LocalDateTime createdat;
+
+   public enum Status{
+       Accepted,Pending,Completed,Failed
+   }
+
+
+
+
 
 
 }
