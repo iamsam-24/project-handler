@@ -69,13 +69,30 @@ public class ProjectService {
     }
 
     public Boolean deleteProject(Long id){
-        Boolean isStudent = projectRepository.existsById(id);
+        Boolean isProject = projectRepository.existsById(id);
 
-        if(!isStudent) return false;
+        if(!isProject) return false;
 
        projectRepository.deleteById(id);
        return true;
     }
+
+
+    public Boolean softDelete(Long id){
+       Optional<Project> existingProject= projectRepository.findByIdAndDeletedIsFalse(id);
+
+
+       if(existingProject.isEmpty()){
+           return false;
+       }
+
+       Project projectToSave=existingProject.get();
+       projectToSave.setDeleted(true);
+       projectRepository.save(projectToSave);
+
+       return true;
+    }
+
 
     private Project mapToEntity(Requestdto requestdto){
 

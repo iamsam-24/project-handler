@@ -65,4 +65,17 @@ public class ProjectController {
         return ResponseEntity.ok(isDeleted);
     }
 
+    ///soft delete means we actually delete it from just upper part ...but the data is still saved in the database
+
+    @PatchMapping("/delete-soft")
+    public ResponseEntity<Boolean> softDelete(@PathVariable Long id) {
+        Boolean isDeleted =projectService.softDelete(id);
+
+        if(isDeleted) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok("Record Deleted");
+    }
+
 }

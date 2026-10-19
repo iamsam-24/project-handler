@@ -59,8 +59,17 @@ public class Project {
     private String description;
     public Status type;
     private LocalDateTime createdat;
+    private Boolean deleted;
 
-   public enum Status{
+    public void setDeleted(Boolean deleted) {
+        this.deleted=deleted;
+    }
+
+    public Boolean getDeleted(){
+        return deleted;
+    }
+
+    public enum Status{
        Accepted,Pending,Completed,Failed
    }
 
