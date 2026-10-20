@@ -5,5 +5,4 @@ public enum TasksStatus {
     TODO,
     DONE,
     FAILED
-
 }

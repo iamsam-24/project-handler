@@ -1,10 +1,11 @@
 package com.lackji.project2.entity;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 
 public class Tasks {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long project_id;
     private String title;
@@ -61,11 +62,4 @@ public class Tasks {
     private TasksStatus status;
     @Enumerated(EnumType.STRING)
     private TaskPriority priority;
-
-
-
-
-
-
-
 }
