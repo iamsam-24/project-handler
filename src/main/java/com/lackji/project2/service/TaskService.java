@@ -3,9 +3,10 @@ package com.lackji.project2.service;
 import com.lackji.project2.entity.TaskEntity;
 import com.lackji.project2.repository.TaskRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 
-
+@Service
 public class TaskService {
 
     TaskRepository taskRepository;
@@ -16,15 +17,21 @@ public class TaskService {
     }
 
 
+    @Transactional
     public void createTask(TaskEntity tasks){
         taskRepository.save(tasks);
 
 
     }
-    public void getTask(Long id){
-        taskRepository.findById(id);
+    @Transactional
+    public TaskEntity getTask(Long id){
+        TaskEntity tasks=taskRepository.findById(id);
+        return tasks;
+
     }
 
+
+    @Transactional
     public void updateTask(Long id, TaskEntity tasks){
         TaskEntity tasks1= taskRepository.findById(id);
 
@@ -33,6 +40,7 @@ public class TaskService {
         tasks1.setStatus(tasks.getStatus());
     }
 
+    @Transactional
     public void deleteTask(Long id) {
         taskRepository.deleteTask(id);
 

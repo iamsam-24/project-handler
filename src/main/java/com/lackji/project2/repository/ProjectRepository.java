@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Component
 public interface ProjectRepository extends JpaRepository<Project,Long> {
-    Optional<Project> findByIdAndDeletedIsFalse();
+//    Optional<Project> findByIdAndDeletedIsFalse(Long id);
 
-    List<Project> findByDeletedIsFalse();
+//    List<Project> findByDeletedIsFalse();
 //    Boolean nameExists(String name);
 
 

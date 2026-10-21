@@ -8,14 +8,16 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 
+@RestController
 @RequestMapping("/lackji/task")
 public class TaskController {
 
+    private final TaskService taskService;
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
 
-    TaskService taskService;
+
 
     @PostMapping
 
@@ -24,7 +26,7 @@ public class TaskController {
         return ResponseEntity.ok("Created");
     }
 
-    @GetMapping{"/{id}"}
+    @GetMapping("/{id}")
 
     public ResponseEntity<TaskEntity> getTask(@PathVariable Long id){
         TaskEntity tasks= taskService.getTask(id);
@@ -39,7 +41,7 @@ public class TaskController {
         return ResponseEntity.ok("Done");
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
 
     public ResponseEntity<String> deleteTask(@PathVariable Long id){
         taskService.deleteTask(id);

@@ -78,20 +78,20 @@ public class ProjectService {
     }
 
 
-    public Boolean softDelete(Long id){
-       Optional<Project> existingProject= projectRepository.findByIdAndDeletedIsFalse(id);
-
-
-       if(existingProject.isEmpty()){
-           return false;
-       }
-
-       Project projectToSave=existingProject.get();
-       projectToSave.setDeleted(true);
-       projectRepository.save(projectToSave);
-
-       return true;
-    }
+//    public Boolean softDelete(Long id){
+//       Optional<Project> existingProject= projectRepository.findByIdAndDeletedIsFalse();
+//
+//
+//       if(existingProject.isEmpty()){
+//           return false;
+//       }
+//
+//       Project projectToSave=existingProject.get();
+//       projectToSave.setDeleted(true);
+//       projectRepository.save(projectToSave);
+//
+//       return true;
+//    }
 
 
     private Project mapToEntity(Requestdto requestdto){

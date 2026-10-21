@@ -9,9 +9,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class TaskRepository {
 
-    private EntityManager entity;
-
     @PersistenceContext
+  private EntityManager entity;
+
+
 
     //create
     public void save(TaskEntity tasks){

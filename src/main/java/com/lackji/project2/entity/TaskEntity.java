@@ -2,6 +2,7 @@ package com.lackji.project2.entity;
 
 import jakarta.persistence.*;
 
+@Entity
 public class TaskEntity {
 
     @Id
@@ -26,6 +27,20 @@ public class TaskEntity {
         this.project_id = project_id;
     }
 
+    protected TaskEntity(){
+
+    }//this should be added to run the get response in the postman
+    //this is because jpa needs a no argument constructor
+
+
+    public TaskEntity(Long id, Long project_id, String title, TasksStatus status, TaskPriority priority) {
+        this.id = id;
+        this.project_id = project_id;
+        this.title = title;
+        this.status = status;
+        this.priority = priority;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -33,6 +48,8 @@ public class TaskEntity {
     public void setTitle(String title) {
         this.title = title;
     }
+
+
 
     public TasksStatus getStatus() {
         return status;
@@ -50,13 +67,7 @@ public class TaskEntity {
         this.priority = priority;
     }
 
-    public Tasks(Long id, Long project_id, String title, TasksStatus status, TaskPriority priority) {
-        this.id = id;
-        this.project_id = project_id;
-        this.title = title;
-        this.status = status;
-        this.priority = priority;
-    }
+
 
     @Enumerated(EnumType.STRING)
     private TasksStatus status;
