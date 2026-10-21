@@ -1,11 +1,11 @@
 package com.lackji.project2.controller;
 
 
-import com.lackji.project2.entity.Tasks;
+import com.lackji.project2.entity.TaskEntity;
 import com.lackji.project2.repository.ProjectRepository;
 import com.lackji.project2.service.TaskService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.config.Task;
+
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/lackji/task")
@@ -19,23 +19,23 @@ public class TaskController {
 
     @PostMapping
 
-    public ResponseEntity<String> createTask(@RequestBody Task tasks){
+    public ResponseEntity<String> createTask(@RequestBody TaskEntity tasks){
         taskService.createTask(tasks);
         return ResponseEntity.ok("Created");
     }
 
     @GetMapping{"/{id}"}
 
-    public ResponseEntity<Task> getTask(@PathVariable Long id){
-        Task tasks= taskService.getTask(id);
+    public ResponseEntity<TaskEntity> getTask(@PathVariable Long id){
+        TaskEntity tasks= taskService.getTask(id);
         return ResponseEntity.ok(tasks);
 
     }
 
-    @PutMapping({"/id"})
+    @PutMapping("/{id}")
 
-    public ResponseEntity<String> updateTask(@PathVariable Long id, @RequestBody Task tasks){
-        taskService.updateTask(id);
+    public ResponseEntity<String> updateTask(@PathVariable Long id, @RequestBody TaskEntity tasks){
+        taskService.updateTask(id, tasks);
         return ResponseEntity.ok("Done");
     }
 

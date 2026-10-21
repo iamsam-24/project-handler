@@ -2,7 +2,7 @@ package com.lackji.project2.entity;
 
 import jakarta.persistence.*;
 
-public class Tasks {
+public class TaskEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

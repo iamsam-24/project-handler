@@ -1,8 +1,10 @@
 package com.lackji.project2.service;
 
+import com.lackji.project2.entity.TaskEntity;
 import com.lackji.project2.repository.TaskRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.scheduling.config.Task;
+
+
 
 public class TaskService {
 
@@ -13,25 +15,29 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    @Transactional
-    public void createTask(Task tasks){
-        taskRepository.saveTask(tasks);
-    }
 
-    @Transactional
+    public void createTask(TaskEntity tasks){
+        taskRepository.save(tasks);
 
-    public Task getTask(Long id){
-        return taskRepository.getTask(id);
 
     }
+    public void getTask(Long id){
+        taskRepository.findById(id);
+    }
 
-    @Transactional
-    public Task updateTask(Task tasks,Long id){
-        Task tasks1 = taskRepository.getTask(id);
+    public void updateTask(Long id, TaskEntity tasks){
+        TaskEntity tasks1= taskRepository.findById(id);
 
-        tasks1.
+        tasks1.setTitle(tasks.getTitle());
+        tasks1.setPriority(tasks.getPriority());
+        tasks1.setStatus(tasks.getStatus());
+    }
+
+    public void deleteTask(Long id) {
+        taskRepository.deleteTask(id);
 
     }
+
 
 
 

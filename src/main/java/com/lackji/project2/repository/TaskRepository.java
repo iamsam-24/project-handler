@@ -1,8 +1,9 @@
 package com.lackji.project2.repository;
 
+import com.lackji.project2.entity.TaskEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.springframework.scheduling.config.Task;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -13,15 +14,15 @@ public class TaskRepository {
     @PersistenceContext
 
     //create
-    public void saveTask(Task tasks){
+    public void save(TaskEntity tasks){
         entity.persist(tasks);
     }
 
     //read
 
-    public Task getTask(Long id){
+    public TaskEntity findById(Long id){
 
-        return entity.find(Task.class ,id);
+        return entity.find(TaskEntity.class ,id);
     }
 
     //delete
