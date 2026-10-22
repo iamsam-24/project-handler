@@ -8,7 +8,9 @@ public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long project_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name= "project_id")
+    private Project project;
     private String title;
 
     public Long getId() {
@@ -19,12 +21,12 @@ public class TaskEntity {
         this.id = id;
     }
 
-    public Long getProject_id() {
-        return project_id;
+    public Project getProject() {
+        return project;
     }
 
-    public void setProject_id(Long project_id) {
-        this.project_id = project_id;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     protected TaskEntity(){
@@ -33,9 +35,9 @@ public class TaskEntity {
     //this is because jpa needs a no argument constructor
 
 
-    public TaskEntity(Long id, Long project_id, String title, TasksStatus status, TaskPriority priority) {
+    public TaskEntity(Long id, Project project, String title, TasksStatus status, TaskPriority priority) {
         this.id = id;
-        this.project_id = project_id;
+        this.project = project;
         this.title = title;
         this.status = status;
         this.priority = priority;

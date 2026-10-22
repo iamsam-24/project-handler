@@ -1,24 +1,33 @@
 package com.lackji.project2.service;
 
+import com.lackji.project2.entity.Project;
 import com.lackji.project2.entity.TaskEntity;
+import com.lackji.project2.repository.ProjectRepository;
 import com.lackji.project2.repository.TaskRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
 public class TaskService {
 
-    TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
+    private final ProjectRepository projectRepository;
 
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository,ProjectRepository projectRepository) {
         this.taskRepository = taskRepository;
+        this.projectRepository=projectRepository;
     }
 
 
     @Transactional
-    public void createTask(TaskEntity tasks){
+    public void createTask(TaskEntity tasks,Long projectId){
+
+        Project project= projectRepository.findById(projectId);
+        tasks.setProject(project);
         taskRepository.save(tasks);
 
 
@@ -44,6 +53,10 @@ public class TaskService {
     public void deleteTask(Long id) {
         taskRepository.deleteTask(id);
 
+    }
+    @Transactional()
+    public List<TaskEntity> findTaskByProjectId(Long projectId){
+        return taskRepository.findByProjectId(projectId);
     }
 
 

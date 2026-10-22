@@ -6,6 +6,9 @@ import jakarta.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+
 @Repository
 public class TaskRepository {
 
@@ -29,6 +32,19 @@ public class TaskRepository {
     //delete
     public void deleteTask(Long id){
         entity.remove(id);
+    }
+
+
+    //getting task by project id ...
+
+    public List<TaskEntity> findByProjectId(Long projectId){
+        return entity.createQuery(
+                "SELECT t FROM TaskEntity t WHERE t.project.id = :projectId",
+                TaskEntity.class
+        )
+                .setParameter("projectId",projectId)
+
+                .getResultList();
     }
 
 
