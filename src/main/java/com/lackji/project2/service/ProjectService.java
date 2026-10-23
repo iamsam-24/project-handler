@@ -4,9 +4,11 @@ package com.lackji.project2.service;
 import com.lackji.project2.dto.Requestdto;
 import com.lackji.project2.dto.Responsedto;
 import com.lackji.project2.entity.Project;
+import com.lackji.project2.entity.TaskEntity;
 import com.lackji.project2.exception.DuplicateFoundException;
 import com.lackji.project2.exception.ResourceNotFoundException;
 import com.lackji.project2.repository.ProjectRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -66,6 +68,14 @@ public class ProjectService {
         List<Project> projectResponse= projectRepository.findAll();
 
         return projectResponse;
+    }
+
+    @Transactional
+    public Project addTaskToProject(Long projectId,TaskEntity tasks){
+        Project project= getProject(projectId);
+        project.addTask(tasks);
+        return projectRepository.save(project);
+
     }
 
     public Boolean deleteProject(Long id){

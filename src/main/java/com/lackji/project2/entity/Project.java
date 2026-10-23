@@ -1,14 +1,15 @@
 package com.lackji.project2.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name="project")
 public class Project {
 
     @Id
@@ -18,6 +19,23 @@ public class Project {
     public String getName() {
         return name;
     }
+
+    public List<TaskEntity> getTasks() {
+        return tasks;
+    }
+
+
+    //here these lines are used to add task to the project ...so that we can access the task through the projects
+    public void addTask(TaskEntity task){
+        tasks.add(task);
+        task.setProject(this);
+
+    }
+
+
+    @OneToMany(mappedBy = "project" )
+    @JsonIgnore
+    private List<TaskEntity> tasks =new ArrayList<>();
 
     public void setName(String name) {
         this.name = name;

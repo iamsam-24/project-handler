@@ -21,10 +21,10 @@ public class TaskController {
     }
 
 
-    @PostMapping{"/project/{projectId}"}
+    @PostMapping("/project/{projectId}")
 
-    public ResponseEntity<String> createTask(@RequestBody TaskEntity tasks,@PathVariable Long projectId) {
-        taskService.createTask(tasks);
+    public ResponseEntity<String> createTask(@PathVariable Long projectId,@RequestBody TaskEntity tasks) {
+        taskService.createTask(projectId,tasks);
         return ResponseEntity.ok("Created");
     }
 
@@ -51,12 +51,12 @@ public class TaskController {
         return ResponseEntity.ok("Done");
     }
 
-    @GetMapping("/project/{projectId}/tasks")
-
-    public ResponseEntity<List<TaskEntity>> findTaskByProjectId(@PathVariable Long projectId) {
-
-        return ResponseEntity.ok(taskService.findTaskByProjectId(projectId));
-    }
+//    @GetMapping("/project/{projectId}/tasks")
+//
+//    public ResponseEntity<List<TaskEntity>> findTaskByProjectId(@PathVariable Long projectId) {
+//
+//        return ResponseEntity.ok(taskService.findTaskByProjectId(projectId));
+//    }
 
 
 }

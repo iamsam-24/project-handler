@@ -3,10 +3,13 @@ package com.lackji.project2.controller;
 import com.lackji.project2.dto.Requestdto;
 import com.lackji.project2.dto.Responsedto;
 import com.lackji.project2.entity.Project;
+import com.lackji.project2.entity.TaskEntity;
 import com.lackji.project2.service.ProjectService;
+import jakarta.persistence.Table;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +35,14 @@ public class ProjectController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(project);
 
+
+    }
+
+
+    @PostMapping("/{id}/tasks")
+    public ResponseEntity<Project> addTask(@PathVariable Long id, @RequestBody TaskEntity tasks){
+        Project updatedProject= projectService.addTaskToProject(id,tasks);
+        return ResponseEntity.ok(updatedProject);
 
     }
 

@@ -4,13 +4,14 @@ import com.lackji.project2.entity.TaskEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 
 @Repository
-public class TaskRepository {
+public class TaskRepository  {
 
     @PersistenceContext
   private EntityManager entity;
@@ -18,7 +19,7 @@ public class TaskRepository {
 
 
     //create
-    public void save(TaskEntity tasks){
+    public void save(Long projectId,TaskEntity tasks){
         entity.persist(tasks);
     }
 
@@ -37,15 +38,15 @@ public class TaskRepository {
 
     //getting task by project id ...
 
-    public List<TaskEntity> findByProjectId(Long projectId){
-        return entity.createQuery(
-                "SELECT t FROM TaskEntity t WHERE t.project.id = :projectId",
-                TaskEntity.class
-        )
-                .setParameter("projectId",projectId)
-
-                .getResultList();
-    }
+//    public List<TaskEntity> findByProjectId(Long projectId){
+//        return entity.createQuery(
+//                "SELECT t FROM TaskEntity t WHERE t.project.id = :projectId",
+//                TaskEntity.class
+//        )
+//                .setParameter("projectId",projectId)
+//
+//                .getResultList();
+//    }
 
 
 

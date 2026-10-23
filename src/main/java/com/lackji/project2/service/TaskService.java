@@ -24,14 +24,16 @@ public class TaskService {
 
 
     @Transactional
-    public void createTask(TaskEntity tasks,Long projectId){
+    public void createTask(Long projectId,TaskEntity tasks){
 
-        Project project= projectRepository.findById(projectId);
-        tasks.setProject(project);
-        taskRepository.save(tasks);
+
+
+        taskRepository.save(projectId,tasks);
 
 
     }
+
+
     @Transactional
     public TaskEntity getTask(Long id){
         TaskEntity tasks=taskRepository.findById(id);
@@ -54,11 +56,11 @@ public class TaskService {
         taskRepository.deleteTask(id);
 
     }
-    @Transactional()
-    public List<TaskEntity> findTaskByProjectId(Long projectId){
-        return taskRepository.findByProjectId(projectId);
-    }
-
+//    @Transactional()
+//    public List<TaskEntity> findTaskByProjectId(Long projectId){
+//        return taskRepository.findByProjectId(projectId);
+//    }
+//
 
 
 

@@ -3,13 +3,16 @@ package com.lackji.project2.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name="task_entity")
 public class TaskEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "project_id")
+
+    //making too many mistake in the relationship ....trying this thing..i don't know why
+    @ManyToOne
+    @JoinColumn(name="project_id",nullable = false)
     private Project project;
     private String title;
 
