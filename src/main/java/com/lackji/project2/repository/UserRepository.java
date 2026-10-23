@@ -21,6 +21,8 @@ public class UserRepository {
 
     public User findById(UUID id){
        return entityManager.find(User.class,id);
+
+
     }
 
     public void remove(UUID id){

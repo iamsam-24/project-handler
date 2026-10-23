@@ -55,6 +55,10 @@ public class User {
         this.createdat = createdat;
     }
 
+    protected User(){
+        //do not forget this ..this is most important to make that get request working
+    }
+
     @Column(nullable = false,unique = true)
     private String email;
 
