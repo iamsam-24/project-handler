@@ -1,6 +1,6 @@
 package com.lackji.project2.exception;
 
-import com.lackji.project2.dto.Responsedto;
+
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
