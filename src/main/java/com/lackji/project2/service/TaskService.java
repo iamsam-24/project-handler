@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -24,9 +25,10 @@ public class TaskService {
 
 
     @Transactional
-    public void createTask(Long projectId,TaskEntity tasks){
+    public void createTask(UUID projectId, TaskEntity tasks){
+        Project project= projectRepository.getProjectById(projectId);
 
-
+        tasks.setProject(project);
 
         taskRepository.save(projectId,tasks);
 

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Repository
@@ -19,7 +20,7 @@ public class TaskRepository  {
 
 
     //create
-    public void save(Long projectId,TaskEntity tasks){
+    public void save(UUID projectId, TaskEntity tasks){
         entity.persist(tasks);
     }
 

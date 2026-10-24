@@ -1,13 +1,13 @@
 package com.lackji.project2.controller;
 
 import com.lackji.project2.entity.Organisation;
+import com.lackji.project2.entity.Project;
 import com.lackji.project2.service.OrganisationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/organisation")
@@ -26,5 +26,17 @@ public class OrganisationController {
 
         return ResponseEntity.ok("Done");
 
+    }
+
+    @GetMapping
+    public ResponseEntity<Organisation> getOrgById(@PathVariable UUID id){
+        Organisation organisation=organisationService.getOrgById(id);
+        return ResponseEntity.ok(organisation);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteOrg(@PathVariable UUID id){
+        organisationService.deleteOrg(id);
+        return ResponseEntity.ok("Organisation Deleted");
     }
 }

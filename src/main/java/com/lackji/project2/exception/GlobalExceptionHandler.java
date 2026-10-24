@@ -44,6 +44,9 @@ public class GlobalExceptionHandler {
 
 
 
+
+
+
     @ExceptionHandler(RuntimeException.class)
 
     public ResponseEntity<String> handleRuntimeException(RuntimeException ex, HttpServletRequest request){

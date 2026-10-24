@@ -13,7 +13,6 @@ import java.util.UUID;
 @Table(name="project")
 public class Project {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -64,6 +63,9 @@ public class Project {
         this.organisation = organisation;
     }
 
+    protected Project(){
+
+    }
 
 
 

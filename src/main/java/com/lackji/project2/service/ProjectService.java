@@ -38,6 +38,17 @@ public class ProjectService {
         projectRepository.save(project);
 
     }
+
+    @Transactional
+    public Project getProject(UUID id){
+        return projectRepository.getProjectById(id);
+    }
+
+    @Transactional
+    public void removeProject(UUID id){
+        projectRepository.remove(id);
+    }
+
     //    private ProjectRepository projectRepository;
 //
 //    public ProjectService(ProjectRepository projectRepository){

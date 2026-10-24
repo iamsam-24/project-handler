@@ -1,15 +1,10 @@
 package com.lackji.project2.repository;
 
 import com.lackji.project2.entity.Project;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
 
 @Repository
@@ -24,5 +19,13 @@ public class ProjectRepository  {
 
     public void save(Project project){
         entityManager.persist(project);
+    }
+
+    public Project getProjectById(UUID id){
+        return entityManager.find(Project.class,id);
+    }
+
+    public void remove(UUID id){
+        entityManager.remove(id);
     }
 }

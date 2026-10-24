@@ -33,6 +33,20 @@ public class ProjectController {
 
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Project> getProject(@PathVariable UUID id){
+
+       Project project= projectService.getProject(id);
+        return ResponseEntity.ok(project);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteProject(@PathVariable UUID id){
+        projectService.removeProject(id);
+        return ResponseEntity.ok("Project Deleted");
+    }
+
+
     //    private ProjectService projectService;
 //
 //    public  ProjectController(ProjectService projectService){

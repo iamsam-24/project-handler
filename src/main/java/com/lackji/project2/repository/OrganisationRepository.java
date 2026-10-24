@@ -23,4 +23,8 @@ public class OrganisationRepository {
     public Organisation getOrgById(UUID id){
         return entityManager.find(Organisation.class,id);
     }
+
+    public void deleteOrg(UUID id){
+        entityManager.remove(id);
+    }
 }

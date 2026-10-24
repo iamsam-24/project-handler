@@ -9,9 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/lackji/task")
+@RequestMapping("/api/task")
 public class TaskController {
 
     private final TaskService taskService;
@@ -21,9 +22,9 @@ public class TaskController {
     }
 
 
-    @PostMapping("/project/{projectId}")
+    @PostMapping("/{projectId}")
 
-    public ResponseEntity<String> createTask(@PathVariable Long projectId,@RequestBody TaskEntity tasks) {
+    public ResponseEntity<String> createTask(@PathVariable UUID projectId, @RequestBody TaskEntity tasks) {
         taskService.createTask(projectId,tasks);
         return ResponseEntity.ok("Created");
     }
