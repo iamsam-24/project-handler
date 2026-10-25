@@ -26,6 +26,20 @@ public class ProjectRepository  {
     }
 
     public void remove(UUID id){
-        entityManager.remove(id);
+        Project project=entityManager.find(Project.class,id);
+        if(project!=null){
+            entityManager.remove(project);
+        }
+    }
+
+    public Boolean projectExists(String name){
+        Long count = entityManager.createQuery(
+                "SELECT COUNT (p) FROM Project p WHERE p.name =:name"
+                        , Long.class
+        ).setParameter("name",name)
+                .getSingleResult();
+
+        return count>0;
+
     }
 }

@@ -28,13 +28,13 @@ public class OrganisationController {
 
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<Organisation> getOrgById(@PathVariable UUID id){
         Organisation organisation=organisationService.getOrgById(id);
         return ResponseEntity.ok(organisation);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOrg(@PathVariable UUID id){
         organisationService.deleteOrg(id);
         return ResponseEntity.ok("Organisation Deleted");

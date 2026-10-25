@@ -33,7 +33,12 @@ public class TaskRepository  {
 
     //delete
     public void deleteTask(Long id){
-        entity.remove(id);
+
+        TaskEntity tasks=entity.find(TaskEntity.class,id);
+
+        if(tasks!=null){
+            entity.remove(tasks);
+        }
     }
 
 

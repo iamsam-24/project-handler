@@ -1,4 +1,4 @@
-package com.lackji.project2.Filter;
+package com.lackji.project2.core.logging.Filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;

@@ -22,8 +22,12 @@ public class Organisation {
     private LocalDateTime createdAt;
 
 
-//    @OneToMany(mappedBy = "project")
-//    private List<Project> projectList=new ArrayList<>();
+
+
+    //doing the same cascade.remove thing here
+
+    @OneToMany(mappedBy = "organisation", cascade = CascadeType.REMOVE)
+    private List<Project> projects=new ArrayList<>();
 
     public UUID getId() {
         return id;

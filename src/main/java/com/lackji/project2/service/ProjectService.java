@@ -2,19 +2,14 @@ package com.lackji.project2.service;
 
 
 
+import com.lackji.project2.core.exception.DuplicateFoundException;
 import com.lackji.project2.entity.Organisation;
 import com.lackji.project2.entity.Project;
-import com.lackji.project2.entity.TaskEntity;
-import com.lackji.project2.exception.DuplicateFoundException;
-import com.lackji.project2.exception.ResourceNotFoundException;
 import com.lackji.project2.repository.OrganisationRepository;
 import com.lackji.project2.repository.ProjectRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
 import java.util.UUID;
 
 @Service
@@ -35,7 +30,16 @@ public class ProjectService {
 
 
         project.setOrganisation(organisation);
+
+
+        if(projectExists(project)){
+            throw new DuplicateFoundException(
+                    "This project with: "+project.getName()+"already exists"
+            );
+        }
         projectRepository.save(project);
+
+
 
     }
 
@@ -166,6 +170,10 @@ public class ProjectService {
 
         //adding extra time to give response to api or to load it ...like caching (redis things) actually it gives time for other backend processes to run
 
+    public Boolean projectExists(Project project){
+        return projectRepository.projectExists(project.getName());
+
+    }
 
     }
 

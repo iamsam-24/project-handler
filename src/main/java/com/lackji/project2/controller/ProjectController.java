@@ -40,10 +40,10 @@ public class ProjectController {
         return ResponseEntity.ok(project);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProject(@PathVariable UUID id){
         projectService.removeProject(id);
-        return ResponseEntity.ok("Project Deleted");
+        return ResponseEntity.ok("Project and all related Tasks have been deleted ");
     }
 
 

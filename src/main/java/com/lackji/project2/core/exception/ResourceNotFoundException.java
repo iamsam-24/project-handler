@@ -1,4 +1,4 @@
-package com.lackji.project2.exception;
+package com.lackji.project2.core.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
 

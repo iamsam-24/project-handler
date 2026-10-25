@@ -1,6 +1,7 @@
 package com.lackji.project2.service;
 
 import com.lackji.project2.entity.Organisation;
+import com.lackji.project2.core.exception.DuplicateFoundException;
 import com.lackji.project2.repository.OrganisationRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,16 @@ public class OrganisationService {
 
     @Transactional
     public void createOrg(Organisation organisation){
+
+
+        if(nameExists(organisation)){
+            throw new DuplicateFoundException(
+                    "Organisation named :" +organisation.getName() +"already exists"
+            );
+        }
         organisationRepository.save(organisation);
+
+
 
     }
 
@@ -31,5 +41,10 @@ public class OrganisationService {
     @Transactional
     public void deleteOrg(UUID id){
         organisationRepository.deleteOrg(id);
+    }
+
+
+    private Boolean nameExists(Organisation organisation){
+        return organisationRepository.nameExists(organisation.getName());
     }
 }

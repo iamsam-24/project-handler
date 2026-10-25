@@ -1,6 +1,6 @@
 package com.lackji.project2.Config;
 
-import com.lackji.project2.Interceptor.LoggingInterceptor;
+import com.lackji.project2.core.logging.interceptor.Interceptor.LoggingInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

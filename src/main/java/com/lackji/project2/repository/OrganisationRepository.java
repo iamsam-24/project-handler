@@ -25,6 +25,23 @@ public class OrganisationRepository {
     }
 
     public void deleteOrg(UUID id){
-        entityManager.remove(id);
+       Organisation organisation= entityManager.find(Organisation.class,id);
+
+       if(organisation !=null){
+           entityManager.remove(organisation);
+       }
+    }
+
+
+    //checking if name already exists exception
+
+    public Boolean nameExists(String name){
+        Long count = entityManager.createQuery(
+                "SELECT COUNT (o) FROM Organisation WHERE o.name = :name",
+                Long.class
+        ).setParameter("name",name)
+                .getSingleResult();
+
+        return count >0;
     }
 }

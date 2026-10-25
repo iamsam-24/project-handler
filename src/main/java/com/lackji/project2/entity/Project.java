@@ -23,6 +23,18 @@ public class Project {
     @JoinColumn(name = "org_id",nullable = false)
     private Organisation organisation;
 
+    //using cascade.remove to help remove the project along with task building two way relation so that both can be deleted at the same timne
+    //because when deleting task onlyy task should be deleted and when deleting project the all task related to that project
+    //should be deleted
+
+    //using list beacuse one project can have various task so in order to store it and get all at same time we are using
+    //list
+
+    @OneToMany(mappedBy = "project",cascade=CascadeType.REMOVE)
+
+    private List<TaskEntity> tasks= new ArrayList<>();
+
+
     public UUID getId() {
         return id;
     }

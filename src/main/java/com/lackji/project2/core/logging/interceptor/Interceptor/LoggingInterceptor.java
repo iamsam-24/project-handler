@@ -1,4 +1,4 @@
-package com.lackji.project2.Interceptor;
+package com.lackji.project2.core.logging.interceptor.Interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
