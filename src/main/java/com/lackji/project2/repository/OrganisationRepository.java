@@ -37,7 +37,7 @@ public class OrganisationRepository {
 
     public Boolean nameExists(String name){
         Long count = entityManager.createQuery(
-                "SELECT COUNT (o) FROM Organisation WHERE o.name = :name",
+                "SELECT COUNT (o) FROM Organisation o WHERE o.name = :name",
                 Long.class
         ).setParameter("name",name)
                 .getSingleResult();

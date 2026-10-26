@@ -61,7 +61,7 @@ public class Membership {
         this.role = role;
     }
 
-    protected Membership(){
+    public Membership(){
 
     }
 

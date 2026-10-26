@@ -2,6 +2,7 @@ package com.lackji.project2.service;
 
 
 import com.lackji.project2.entity.User;
+import com.lackji.project2.repository.MembershipRepository;
 import com.lackji.project2.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,11 @@ import java.util.UUID;
 public class UserService {
 
     UserRepository userRepository;
+    MembershipRepository membershipRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, MembershipRepository membershipRepository) {
         this.userRepository = userRepository;
+        this.membershipRepository=membershipRepository;
     }
 
 
@@ -33,6 +36,11 @@ public class UserService {
     public void removeUser(UUID id){
         userRepository.remove(id);
     }
+
+
+
+
+
 
 
 }
