@@ -17,12 +17,17 @@ public class Organisation {
     @Column(nullable = false,unique = true)
     private String name;
 
+
+
     @Column(nullable = false,unique = true)
     private String slug;
     private LocalDateTime createdAt;
 
 
 
+
+    @OneToMany(mappedBy = "organisation")
+    private List <Membership> memberships=new ArrayList<>();
 
     //doing the same cascade.remove thing here
 

@@ -44,6 +44,7 @@ public class OrganisationService {
     }
 
 
+
     private Boolean nameExists(Organisation organisation){
         return organisationRepository.nameExists(organisation.getName());
     }

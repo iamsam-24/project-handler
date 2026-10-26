@@ -3,6 +3,8 @@ package com.lackji.project2.entity;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -15,6 +17,11 @@ public class User {
 
     @Column(nullable = false,name="user_name")
     private String name;
+
+
+    @OneToMany(mappedBy = "user")
+    private List<Membership> membershipList= new ArrayList<>();
+
 
     public UUID getId() {
         return id;
