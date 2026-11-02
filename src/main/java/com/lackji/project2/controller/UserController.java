@@ -9,6 +9,7 @@ import com.lackji.project2.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.web.server.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,11 @@ public class UserController {
 
 
 
+    @GetMapping("/hello")
+    public String sayHello(Authentication authentication){
+        return "HELLO  "+ authentication.getName();
 
+    }
 
 
 
