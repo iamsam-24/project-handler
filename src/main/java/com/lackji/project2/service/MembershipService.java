@@ -30,7 +30,10 @@ public class MembershipService {
     public void createMembership(UUID userId, UUID orgId){
 
 
-        User user= userRepository.findById(userId).get();
+        User user= userRepository.findById(userId).
+                orElseThrow(
+                        ()->  new RuntimeException("User not found")
+                );
 
 
         Organisation organisation=organisationRepository.getOrgById(orgId);

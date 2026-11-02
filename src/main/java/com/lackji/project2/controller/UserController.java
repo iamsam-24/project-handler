@@ -6,6 +6,7 @@ import com.lackji.project2.dto.UserResponseDto;
 import com.lackji.project2.entity.User;
 import com.lackji.project2.service.AuthService;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.server.csrf.CsrfToken;
@@ -28,7 +29,7 @@ public class UserController {
 
     @PostMapping("/register")
 
-    public ResponseEntity<UserResponseDto> registerUser(@RequestBody UserRequestDto userRequestDto){
+    public ResponseEntity<UserResponseDto> registerUser(@Valid @RequestBody UserRequestDto userRequestDto){
 
         UserResponseDto userResponseDto= authService.register(userRequestDto);
 

@@ -16,7 +16,7 @@ public class User {
     @Column(nullable = false,name="user_name")
     private String username;
 
-    private boolean enabled=true;
+//    private boolean enabled=true;
 
     public List<Membership> getMembershipList() {
         return membershipList;
@@ -25,14 +25,14 @@ public class User {
     public void setMembershipList(List<Membership> membershipList) {
         this.membershipList = membershipList;
     }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
+//
+//    public boolean isEnabled() {
+//        return enabled;
+//    }
+//
+//    public void setEnabled(boolean enabled) {
+//        this.enabled = enabled;
+//    }
 
     @ManyToMany
     @JoinTable(

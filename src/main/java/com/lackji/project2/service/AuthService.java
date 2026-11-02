@@ -33,17 +33,18 @@ public class AuthService {
         //then get the user name from the userreuest dto
 
         user.setUsername(userRequestDto.getUsername());
+        user.setEmail(userRequestDto.getEmail());
 
         //use the password encoder
         //get it from the userrquest dto same
         String encodedPass= passwordEncoder.encode(userRequestDto.getPassword());
         //give it to the user
        user.setPassword(encodedPass);
-       user.setEnabled(true);
+//       user.setEnabled(true);
 
        //now work same for the roles
 
-        Role role= roleRepository.findByNameRole("ROLE_USER").get();
+        Role role= roleRepository.findByNameRole("USER_ROLE").get();
         //get and add role to the user so that we can pass through it
         user.getRoles().add(role);
 
