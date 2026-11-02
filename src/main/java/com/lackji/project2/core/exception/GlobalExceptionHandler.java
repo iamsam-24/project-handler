@@ -38,12 +38,6 @@ public class GlobalExceptionHandler {
 
     }
 
-
-
-
-
-
-
     @ExceptionHandler(RuntimeException.class)
 
     public ResponseEntity<String> handleRuntimeException(RuntimeException ex, HttpServletRequest request){
@@ -51,8 +45,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .body(ex.getMessage());
-
-
 
 
     }

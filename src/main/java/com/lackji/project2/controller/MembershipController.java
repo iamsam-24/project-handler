@@ -26,4 +26,21 @@ public class MembershipController {
         membershipService.createMembership(request.getUserId(),request.getOrgId());
         return ResponseEntity.ok("Member created");
     }
+
+    @GetMapping("/{id}")
+
+    public ResponseEntity<Membership> getMember(@PathVariable Long id){
+        Membership membership= membershipService.getById(id);
+
+        return ResponseEntity.ok(membership);
+
+    }
+
+    @DeleteMapping("/{id}")
+
+    public ResponseEntity<String> deleteMember(@PathVariable Long id){
+        membershipService.deleteMembership(id);
+        return ResponseEntity.ok("Membership deleted related user and org");
+    }
+
 }

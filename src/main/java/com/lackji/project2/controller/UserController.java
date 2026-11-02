@@ -1,9 +1,14 @@
 package com.lackji.project2.controller;
 
 
+import com.lackji.project2.dto.UserRequestDto;
+import com.lackji.project2.dto.UserResponseDto;
 import com.lackji.project2.entity.User;
-import com.lackji.project2.service.UserService;
+import com.lackji.project2.service.AuthService;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.server.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -12,38 +17,34 @@ import java.util.UUID;
 @RequestMapping("/api/users")
 public class UserController {
 
-    UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+
+    AuthService authService;
+
+    public UserController( AuthService authService) {
+
+        this.authService = authService;
     }
 
-    @PostMapping
+    @PostMapping("/register")
 
-    public ResponseEntity<String> createUser(@RequestBody User user ){
+    public ResponseEntity<UserResponseDto> registerUser(@RequestBody UserRequestDto userRequestDto){
 
-        userService.createUser(user);
-        return ResponseEntity.ok("User Created");
+        UserResponseDto userResponseDto= authService.register(userRequestDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDto);
     }
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable UUID id){
 
-        User user= userService.findUserById(id);
-        if(user==null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(user);
+
+
+
+
+    @GetMapping("/token")
+
+    public CsrfToken getToken(CsrfToken csrfToken){
+        return csrfToken;
     }
-
-    @DeleteMapping("/{id}")
-
-    public ResponseEntity<String> removeUser(@PathVariable UUID id){
-        userService.removeUser(id);
-        return ResponseEntity.ok("User Deleted");
-
-    }
-
 
 }

@@ -45,28 +45,21 @@ public class Membership {
         this.organisation = organisation;
     }
 
-    public Role getRole() {
-        return role;
-    }
 
-    public Membership(Long id, User user, Organisation organisation, Role role) {
+
+    public Membership(Long id, User user, Organisation organisation) {
 
         this.id = id;
         this.user = user;
         this.organisation = organisation;
-        this.role = role;
+
     }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
     public Membership(){
 
     }
 
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
 }

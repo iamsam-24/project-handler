@@ -30,7 +30,7 @@ public class MembershipService {
     public void createMembership(UUID userId, UUID orgId){
 
 
-        User user= userRepository.findById(userId);
+        User user= userRepository.findById(userId).get();
 
 
         Organisation organisation=organisationRepository.getOrgById(orgId);
@@ -43,4 +43,15 @@ public class MembershipService {
 
         membershipRepository.save(membership);
     }
+
+    @Transactional
+    public Membership getById(Long id){
+        return membershipRepository.getById(id);
+    }
+
+    @Transactional
+    public void deleteMembership(Long id){
+        membershipRepository.delete(id);
+    }
+
 }

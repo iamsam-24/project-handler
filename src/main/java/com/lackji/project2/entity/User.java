@@ -3,9 +3,7 @@ package com.lackji.project2.entity;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name="users")
@@ -16,8 +14,59 @@ public class User {
     private UUID id;
 
     @Column(nullable = false,name="user_name")
-    private String name;
+    private String username;
 
+    private boolean enabled=true;
+
+    public List<Membership> getMembershipList() {
+        return membershipList;
+    }
+
+    public void setMembershipList(List<Membership> membershipList) {
+        this.membershipList = membershipList;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles=new HashSet<>();
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    private String password;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @OneToMany(mappedBy = "user")
     private List<Membership> membershipList= new ArrayList<>();
@@ -31,13 +80,7 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getEmail() {
         return email;
@@ -55,14 +98,17 @@ public class User {
         this.createdat = createdat;
     }
 
-    public User(UUID id, String name, String email, Timestamp createdat) {
+    public User( UUID id, String username, Set<Role> roles, String password, String email, Timestamp createdat) {
+
         this.id = id;
-        this.name = name;
+        this.username = username;
+        this.roles = roles;
+        this.password = password;
         this.email = email;
         this.createdat = createdat;
     }
 
-    protected User(){
+    public User(){
         //do not forget this ..this is most important to make that get request working
     }
 

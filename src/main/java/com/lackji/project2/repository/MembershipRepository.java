@@ -20,17 +20,19 @@ public class MembershipRepository {
         entityManager.persist(membership);
     }
 
-    public Membership getById(UUID id){
+    public Membership getById(Long id){
         return  entityManager.find(Membership.class,id);
     }
 
-    public void delete(UUID id){
+    public void delete(Long id){
         Membership membership=entityManager.find(Membership.class,id);
 
         if(membership!=null){
             entityManager.remove(membership);
         }
     }
+
+
 
 
 
