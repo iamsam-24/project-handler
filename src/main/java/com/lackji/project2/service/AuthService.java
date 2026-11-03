@@ -44,7 +44,7 @@ public class AuthService {
 
        //now work same for the roles
 
-        Role role= roleRepository.findByNameRole("USER_ROLE").get();
+        Role role= roleRepository.findByNameRole("ROLE_USER").get();
         //get and add role to the user so that we can pass through it
         user.getRoles().add(role);
 

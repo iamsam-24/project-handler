@@ -4,6 +4,7 @@ import com.lackji.project2.service.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -65,7 +66,16 @@ public class SecurityConfig {
                 .authenticationProvider(provider)
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/users/register","/api/users/login").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/api/organisation",
+                                        "/api/project/**",
+                                        "/api/task/**"
+                                        ).hasRole("ADMIN")
+                                .requestMatchers("/api/membership/**",
+                                        "/api/roles/**")
+                                .hasRole("ADMIN")
+
                                 .anyRequest().authenticated()
+
                         ).sessionManagement(session->
                                             session.sessionCreationPolicy(
                                                     SessionCreationPolicy.STATELESS
