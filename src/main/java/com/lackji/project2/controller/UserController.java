@@ -5,6 +5,7 @@ import com.lackji.project2.dto.UserRequestDto;
 import com.lackji.project2.dto.UserResponseDto;
 import com.lackji.project2.entity.User;
 import com.lackji.project2.service.AuthService;
+import com.lackji.project2.service.UserService;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -22,10 +23,12 @@ public class UserController {
 
 
     AuthService authService;
+    UserService userService;
 
-    public UserController( AuthService authService) {
+    public UserController(AuthService authService, UserService userService) {
 
         this.authService = authService;
+        this.userService = userService;
     }
 
     @PostMapping("/register")
@@ -43,6 +46,12 @@ public class UserController {
     public String sayHello(Authentication authentication){
         return "HELLO  "+ authentication.getName();
 
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 
 

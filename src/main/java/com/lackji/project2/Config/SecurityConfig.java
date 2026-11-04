@@ -66,6 +66,7 @@ public class SecurityConfig {
                 .authenticationProvider(provider)
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/users/register","/api/users/login").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.POST,"/api/organisation",
                                         "/api/project/**",
                                         "/api/task/**"

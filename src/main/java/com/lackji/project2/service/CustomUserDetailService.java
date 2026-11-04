@@ -25,12 +25,13 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user= userRepository.findByUsername(username)
                 .orElseThrow(
-                () ->new RuntimeException("User Not found")
+                () ->new UsernameNotFoundException("User Not found")
         );
 
         //while implementing in same or other and returing the method in same file or other
         //always use new to return
 
+        System.out.println("error"+user.getUsername());
         return new CustomUserDetail(user);
     }
 }

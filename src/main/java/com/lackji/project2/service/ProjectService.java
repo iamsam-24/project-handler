@@ -10,6 +10,7 @@ import com.lackji.project2.repository.ProjectRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -46,6 +47,11 @@ public class ProjectService {
     @Transactional
     public Project getProject(UUID id){
         return projectRepository.getProjectById(id);
+    }
+
+    @Transactional
+    public List<Project> getAllProject(){
+        return projectRepository.getAllProject();
     }
 
     @Transactional

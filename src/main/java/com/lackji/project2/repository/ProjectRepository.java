@@ -4,6 +4,7 @@ import com.lackji.project2.entity.Project;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -24,6 +25,11 @@ public class ProjectRepository  {
     public Project getProjectById(UUID id){
         return entityManager.find(Project.class,id);
     }
+
+  public List<Project> getAllProject(){
+        String sql ="SELECT * FROM project;";
+        return entityManager.createNativeQuery(sql, Project.class).getResultList();
+  }
 
     public void remove(UUID id){
         Project project=entityManager.find(Project.class,id);

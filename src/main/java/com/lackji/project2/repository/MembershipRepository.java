@@ -32,6 +32,12 @@ public class MembershipRepository {
         }
     }
 
+    public void deleteByUserId(UUID userId){
+        entityManager.createQuery(
+                "DELETE FROM Membership m WHERE m.user.id = :userId"
+        ).setParameter("userId", userId).executeUpdate();
+    }
+
 
 
 

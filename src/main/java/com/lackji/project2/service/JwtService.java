@@ -49,8 +49,14 @@ public class JwtService {
                 )
                 .claim(
                         "authorities",
-                        authorities
+                        authentication.getAuthorities()
+                                .stream()
+                                .map(GrantedAuthority::getAuthority)
+                                .toList()
                 )
+                .issuedAt((Instant.now()))
+                .expiresAt(Instant.now().plusSeconds(86400))
+
                 .build();
 
         Jwt jwt = jwtEncoder.encode(

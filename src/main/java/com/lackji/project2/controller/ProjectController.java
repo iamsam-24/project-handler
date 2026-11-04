@@ -40,6 +40,13 @@ public class ProjectController {
         return ResponseEntity.ok(project);
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Project>> getAllProjeect(){
+        List<Project> projects= projectService.getAllProject();
+
+        return ResponseEntity.ok(projects);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProject(@PathVariable UUID id){
         projectService.removeProject(id);
