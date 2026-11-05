@@ -1,5 +1,6 @@
 package com.lackji.project2.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -27,11 +28,13 @@ public class Organisation {
 
 
     @OneToMany(mappedBy = "organisation")
+    @JsonIgnore
     private List <Membership> memberships=new ArrayList<>();
 
     //doing the same cascade.remove thing here
 
     @OneToMany(mappedBy = "organisation", cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<Project> projects=new ArrayList<>();
 
     public UUID getId() {

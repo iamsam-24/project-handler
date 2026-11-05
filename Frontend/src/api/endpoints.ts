@@ -1,4 +1,4 @@
-import { apiRequest } from "./client";
+import { apiRequest, getToken } from "./client";
 import type {
   LoginRequest,
   LoginResponse,
@@ -17,18 +17,31 @@ import type {
 
 export const authApi = {
   register: (body: RegisterRequest) =>
-    apiRequest<RegisterResponse>("/api/users/register", {
-      method: "POST",
-      body: JSON.stringify(body),
-    }, false),
+    apiRequest<RegisterResponse>(
+      "/api/users/register",
+      {
+        method: "POST",
+        body: JSON.stringify(body),
+      },
+      false,
+    ),
 
   login: (body: LoginRequest) =>
-    apiRequest<LoginResponse>("/api/users/login", {
-      method: "POST",
-      body: JSON.stringify(body),
-    }, false),
+    apiRequest<LoginResponse>(
+      "/api/users/login",
+      {
+        method: "POST",
+        body: JSON.stringify(body),
+      },
+      false,
+    ),
 
   hello: () => apiRequest<string>("/api/users/hello"),
+};
+
+export const userApi = {
+  remove: (id: string) =>
+    apiRequest<void>(`/api/users/${encodeURIComponent(id)}`, { method: "DELETE" }),
 };
 
 export const roleApi = {
@@ -46,42 +59,65 @@ export const organisationApi = {
       body: JSON.stringify(body),
     }),
 
-  get: (id: string) => apiRequest<Organisation>(`/api/organisation/${id}`),
+  get: (id: string) =>
+    apiRequest<Organisation>(`/api/organisation/${encodeURIComponent(id)}`),
+
+  list: () => apiRequest<Organisation[]>("/api/organisation/getAll"),
 
   remove: (id: string) =>
-    apiRequest<string>(`/api/organisation/${id}`, { method: "DELETE" }),
+    apiRequest<string>(`/api/organisation/${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    }),
 };
 
 export const projectApi = {
   create: (orgId: string, body: ProjectPayload) =>
-    apiRequest<string>(`/api/project/${orgId}`, {
+    apiRequest<string>(`/api/project/${encodeURIComponent(orgId)}`, {
       method: "POST",
       body: JSON.stringify(body),
     }),
 
-  get: (id: string) => apiRequest<Project>(`/api/project/${id}`),
+  get: (id: string) =>
+    apiRequest<Project>(`/api/project/${encodeURIComponent(id)}`),
+
+  list: () => apiRequest<Project[]>("/api/project/getAll"),
+
+  listByOrganisation: (organisationId: string) =>
+    apiRequest<Project[]>(
+      `/api/project/organisation/${encodeURIComponent(organisationId)}`,
+    ),
 
   remove: (id: string) =>
-    apiRequest<string>(`/api/project/${id}`, { method: "DELETE" }),
+    apiRequest<string>(`/api/project/${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    }),
 };
 
 export const taskApi = {
   create: (projectId: string, body: TaskPayload) =>
-    apiRequest<string>(`/api/task/${projectId}`, {
+    apiRequest<string>(`/api/task/${encodeURIComponent(projectId)}`, {
       method: "POST",
       body: JSON.stringify(body),
     }),
 
-  get: (id: number | string) => apiRequest<Task>(`/api/task/${id}`),
+  get: (id: number | string) =>
+    apiRequest<Task>(`/api/task/${encodeURIComponent(id)}`),
+
+  list: () => apiRequest<Task[]>("/api/task/getAll"),
+
+  listByProject: (projectId: string) =>
+    apiRequest<Task[]>(`/api/task/project/${encodeURIComponent(projectId)}`),
 
   update: (id: number | string, body: TaskPayload) =>
-    apiRequest<string>(`/api/task/${id}`, {
+    apiRequest<string>(`/api/task/${encodeURIComponent(id)}`, {
       method: "PUT",
       body: JSON.stringify(body),
     }),
 
   remove: (id: number | string) =>
-    apiRequest<string>(`/api/task/${id}`, { method: "DELETE" }),
+    apiRequest<string>(`/api/task/${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    }),
 };
 
 export const membershipApi = {
@@ -92,13 +128,17 @@ export const membershipApi = {
     }),
 
   get: (id: number | string) =>
-    apiRequest<Membership>(`/api/membership/${id}`),
+    apiRequest<Membership>(`/api/membership/${encodeURIComponent(id)}`),
 
   remove: (id: number | string) =>
-    apiRequest<string>(`/api/membership/${id}`, { method: "DELETE" }),
+    apiRequest<string>(`/api/membership/${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    }),
 };
 
 export function chatSocketUrl(projectId: string): string {
   const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-  return `${protocol}//${window.location.host}/chat?projectId=${encodeURIComponent(projectId)}`;
+  const token = getToken();
+  const tokenParam = token ? `&token=${encodeURIComponent(token)}` : "";
+  return `${protocol}//${window.location.host}/chat?projectId=${encodeURIComponent(projectId)}${tokenParam}`;
 }

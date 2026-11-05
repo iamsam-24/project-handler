@@ -2,6 +2,14 @@ const TOKEN_KEY = "project2.accessToken";
 const USERNAME_KEY = "project2.username";
 const USER_ID_KEY = "project2.userId";
 
+export interface DecodedToken {
+  sub?: string;
+  authorities?: string[];
+  iss?: string;
+  exp?: number;
+  iat?: number;
+}
+
 export class ApiError extends Error {
   status: number;
   body: string;
@@ -16,6 +24,26 @@ export class ApiError extends Error {
 
 export function getToken(): string | null {
   return localStorage.getItem(TOKEN_KEY);
+}
+
+export function decodeJwt(token: string | null): DecodedToken | null {
+  if (!token) return null;
+  try {
+    const parts = token.split(".");
+    if (parts.length < 2) return null;
+    const base64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+    const padded = base64.padEnd(base64.length + ((4 - (base64.length % 4)) % 4), "=");
+    const decoded = atob(padded);
+    return JSON.parse(decoded) as DecodedToken;
+  } catch {
+    return null;
+  }
+}
+
+export function getTokenAuthorities(token: string | null): string[] {
+  const payload = decodeJwt(token);
+  if (!payload || !Array.isArray(payload.authorities)) return [];
+  return payload.authorities.filter((auth): auth is string => typeof auth === "string");
 }
 
 export function getStoredUsername(): string | null {
@@ -38,6 +66,7 @@ export function setSession(token: string, username: string) {
 export function clearSession() {
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(USERNAME_KEY);
+  localStorage.removeItem(USER_ID_KEY);
 }
 
 export async function apiRequest<T = unknown>(
@@ -54,7 +83,7 @@ export async function apiRequest<T = unknown>(
   if (auth) {
     const token = getToken();
     if (!token) {
-      throw new ApiError(401, "Not signed in. Log in first.");
+      throw new ApiError(401, "Not signed in. Please log in first.");
     }
     headers.set("Authorization", `Bearer ${token}`);
   }

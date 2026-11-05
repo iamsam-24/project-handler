@@ -31,6 +31,13 @@ public class ProjectRepository  {
         return entityManager.createNativeQuery(sql, Project.class).getResultList();
   }
 
+    public List<Project> getProjectsByOrganisation(UUID organisationId) {
+        return entityManager.createQuery(
+                "SELECT p FROM Project p WHERE p.organisation.id = :organisationId",
+                Project.class
+        ).setParameter("organisationId", organisationId).getResultList();
+    }
+
     public void remove(UUID id){
         Project project=entityManager.find(Project.class,id);
         if(project!=null){
@@ -38,11 +45,12 @@ public class ProjectRepository  {
         }
     }
 
-    public Boolean projectExists(String name){
+    public Boolean projectExists(String name, UUID organisationId){
         Long count = entityManager.createQuery(
-                "SELECT COUNT (p) FROM Project p WHERE p.name =:name"
+                "SELECT COUNT (p) FROM Project p WHERE p.name = :name AND p.organisation.id = :organisationId"
                         , Long.class
         ).setParameter("name",name)
+                .setParameter("organisationId", organisationId)
                 .getSingleResult();
 
         return count>0;

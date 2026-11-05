@@ -74,3 +74,9 @@ export interface Membership {
   user?: { id: string; username?: string; email?: string } | null;
   organisation?: Organisation | null;
 }
+
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+}

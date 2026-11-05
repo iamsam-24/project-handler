@@ -2,6 +2,7 @@ package com.lackji.project2.service;
 
 import com.lackji.project2.entity.Project;
 import com.lackji.project2.entity.TaskEntity;
+import com.lackji.project2.core.exception.ResourceNotFoundException;
 import com.lackji.project2.repository.ProjectRepository;
 import com.lackji.project2.repository.TaskRepository;
 import jakarta.transaction.Transactional;
@@ -45,6 +46,14 @@ public class TaskService {
     @Transactional
     public List<TaskEntity> getAllTask(){
         return taskRepository.getAllTask();
+    }
+
+    @Transactional
+    public List<TaskEntity> getTasksByProject(UUID projectId) {
+        if (projectRepository.getProjectById(projectId) == null) {
+            throw new ResourceNotFoundException("Project not found: " + projectId);
+        }
+        return taskRepository.getTasksByProject(projectId);
     }
 
 

@@ -38,6 +38,13 @@ public class TaskRepository  {
 
     }
 
+    public List<TaskEntity> getTasksByProject(UUID projectId) {
+        return entity.createQuery(
+                "SELECT t FROM TaskEntity t WHERE t.project.id = :projectId",
+                TaskEntity.class
+        ).setParameter("projectId", projectId).getResultList();
+    }
+
     //delete
     public void deleteTask(Long id){
 

@@ -3,6 +3,7 @@ package com.lackji.project2.service;
 
 
 import com.lackji.project2.core.exception.DuplicateFoundException;
+import com.lackji.project2.core.exception.ResourceNotFoundException;
 import com.lackji.project2.entity.Organisation;
 import com.lackji.project2.entity.Project;
 import com.lackji.project2.repository.OrganisationRepository;
@@ -29,11 +30,15 @@ public class ProjectService {
     public void createProject(Project project, UUID orgId){
         Organisation organisation=organisationRepository.getOrgById(orgId);
 
+        if (organisation == null) {
+            throw new ResourceNotFoundException("Organisation not found: " + orgId);
+        }
+
 
         project.setOrganisation(organisation);
 
 
-        if(projectExists(project)){
+        if(projectExists(project, orgId)){
             throw new DuplicateFoundException(
                     "This project with: "+project.getName()+"already exists"
             );
@@ -52,6 +57,14 @@ public class ProjectService {
     @Transactional
     public List<Project> getAllProject(){
         return projectRepository.getAllProject();
+    }
+
+    @Transactional
+    public List<Project> getProjectsByOrganisation(UUID organisationId) {
+        if (organisationRepository.getOrgById(organisationId) == null) {
+            throw new ResourceNotFoundException("Organisation not found: " + organisationId);
+        }
+        return projectRepository.getProjectsByOrganisation(organisationId);
     }
 
     @Transactional
@@ -176,8 +189,8 @@ public class ProjectService {
 
         //adding extra time to give response to api or to load it ...like caching (redis things) actually it gives time for other backend processes to run
 
-    public Boolean projectExists(Project project){
-        return projectRepository.projectExists(project.getName());
+    public Boolean projectExists(Project project, UUID organisationId){
+        return projectRepository.projectExists(project.getName(), organisationId);
 
     }
 

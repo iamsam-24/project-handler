@@ -40,6 +40,11 @@ public class ProjectController {
         return ResponseEntity.ok(project);
     }
 
+    @GetMapping("/organisation/{organisationId}")
+    public ResponseEntity<List<Project>> getProjectsByOrganisation(@PathVariable UUID organisationId) {
+        return ResponseEntity.ok(projectService.getProjectsByOrganisation(organisationId));
+    }
+
     @GetMapping("/getAll")
     public ResponseEntity<List<Project>> getAllProjeect(){
         List<Project> projects= projectService.getAllProject();

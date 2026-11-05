@@ -26,10 +26,10 @@ public class OrganisationRepository {
     }
 
     public List<Organisation> getAllOrg(){
-
-        String sql ="SELECT * FROM organiation";
-
-        return entityManager.createNativeQuery(sql, Organisation.class).getResultList();
+        return entityManager.createQuery(
+                "SELECT o FROM Organisation o",
+                Organisation.class
+        ).getResultList();
 
     }
 

@@ -31,7 +31,7 @@ public class Project {
     //list
 
     @OneToMany(mappedBy = "project",cascade=CascadeType.REMOVE)
-
+    @JsonIgnore
     private List<TaskEntity> tasks= new ArrayList<>();
 
 
