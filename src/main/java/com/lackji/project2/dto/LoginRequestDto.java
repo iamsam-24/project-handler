@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 
-public class LoginRequestDto {
+public class LoginRequestDto{
 
     private String username;
 

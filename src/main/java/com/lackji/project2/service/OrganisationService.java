@@ -6,6 +6,7 @@ import com.lackji.project2.repository.OrganisationRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -36,6 +37,11 @@ public class OrganisationService {
 
     public Organisation getOrgById(UUID id){
         return organisationRepository.getOrgById(id);
+    }
+
+    @Transactional
+    public List<Organisation> getAllOrg(){
+        return organisationRepository.getAllOrg();
     }
 
     @Transactional

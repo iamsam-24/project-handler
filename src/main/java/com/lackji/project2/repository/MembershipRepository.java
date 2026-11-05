@@ -24,6 +24,7 @@ public class MembershipRepository {
         return  entityManager.find(Membership.class,id);
     }
 
+
     public void delete(Long id){
         Membership membership=entityManager.find(Membership.class,id);
 

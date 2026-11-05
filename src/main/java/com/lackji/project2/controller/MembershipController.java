@@ -36,6 +36,7 @@ public class MembershipController {
 
     }
 
+
     @DeleteMapping("/{id}")
 
     public ResponseEntity<String> deleteMember(@PathVariable Long id){

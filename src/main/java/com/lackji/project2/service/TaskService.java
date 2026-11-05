@@ -42,6 +42,10 @@ public class TaskService {
         return tasks;
 
     }
+    @Transactional
+    public List<TaskEntity> getAllTask(){
+        return taskRepository.getAllTask();
+    }
 
 
     @Transactional

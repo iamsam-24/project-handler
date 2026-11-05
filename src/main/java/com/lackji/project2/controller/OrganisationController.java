@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -32,6 +33,12 @@ public class OrganisationController {
     public ResponseEntity<Organisation> getOrgById(@PathVariable UUID id){
         Organisation organisation=organisationService.getOrgById(id);
         return ResponseEntity.ok(organisation);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Organisation>> getAllOrg(){
+        List<Organisation> organisations=organisationService.getAllOrg();
+        return ResponseEntity.ok(organisations);
     }
 
     @DeleteMapping("/{id}")

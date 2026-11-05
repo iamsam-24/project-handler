@@ -31,6 +31,13 @@ public class TaskRepository  {
         return entity.find(TaskEntity.class ,id);
     }
 
+    public List<TaskEntity> getAllTask(){
+        String sql = "SELECT * FROM task_entity";
+
+        return entity.createNativeQuery(sql, TaskEntity.class).getResultList();
+
+    }
+
     //delete
     public void deleteTask(Long id){
 

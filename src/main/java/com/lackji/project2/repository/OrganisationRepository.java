@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 import javax.swing.text.html.parser.Entity;
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -22,6 +23,14 @@ public class OrganisationRepository {
 
     public Organisation getOrgById(UUID id){
         return entityManager.find(Organisation.class,id);
+    }
+
+    public List<Organisation> getAllOrg(){
+
+        String sql ="SELECT * FROM organiation";
+
+        return entityManager.createNativeQuery(sql, Organisation.class).getResultList();
+
     }
 
     public void deleteOrg(UUID id){
